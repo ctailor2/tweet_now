@@ -4,6 +4,7 @@ $(document).ready(function(event) {
 		event.preventDefault();
 		var form = this;
 		$.post("/tweet", $(form).serialize(), function(response){
+
 		});
 	});
 
@@ -11,8 +12,9 @@ $(document).ready(function(event) {
 	    $("#tweet").children().attr("disabled", true);
 	    $("#tweet").append("<p><img src=\"ajax-loader.gif\"/>Processing Tweet</p>");
 	}).ajaxStop(function () {
-	    $("#tweet").children().attr("disabled", false);
 	    $("#tweet p").replaceWith("<p style=\"color:green\">All Good!</p>");
+	    $("#tweet").children().attr("disabled", false);
+	    $("#tweet textarea").val("");
 	    $("#tweet p").fadeOut(1500);
 	});
 
