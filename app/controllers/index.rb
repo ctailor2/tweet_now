@@ -1,22 +1,10 @@
 get '/' do
-  erb :home
+  erb :index
 end
 
-get '/:username' do
-#display 10 most recent tweets
-  @username = params[:username]
-  @user = Twitteruser.find_by_username(@username)
-  if !@user.nil?
-    if @user.tweets_stale?
-      @user.tweets.clear
-      @user.fetch_tweets!
-    end
-  else
-    @user = Twitteruser.create(username: @username)
-    @user.fetch_tweets!
-  end
-
-  @tweets = @user.tweets.limit(10)
-  
-  erb :index, :layout => false
+post '/tweet' do
+  # Twitter.update(params[:tweet])
+  sleep(2)
+  params[:tweet]
+  # redirect to ("/")
 end

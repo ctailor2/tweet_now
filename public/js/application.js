@@ -1,20 +1,19 @@
 $(document).ready(function(event) {
 
-	$("#loading").hide();
-
-	$("#username").submit(function(event){
-		var form = this;
+	$("#tweet").submit(function(event){
 		event.preventDefault();
-		var username = $(this).find("input").val();
-		$.get("/" + username, function(response){
-			$(".tweets").remove();
-			$(form).append(response);
+		var form = this;
+		$.post("/tweet", $(form).serialize(), function(response){
 		});
 	});
 
 	$(document).ajaxStart(function () {
-	    $("#loading").show();
+	    $("#tweet").children().attr("disabled", true);
+	    $("#tweet").append("<p><img src=\"ajax-loader.gif\"/>Processing Tweet</p>");
 	}).ajaxStop(function () {
-	    $("#loading").hide();
+	    $("#tweet").children().attr("disabled", false);
+	    $("#tweet p").replaceWith("<p style=\"color:green\">All Good!</p>");
+	    $("#tweet p").fadeOut(1500);
 	});
+
 });
